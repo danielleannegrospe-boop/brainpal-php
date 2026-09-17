@@ -1,4 +1,3 @@
-@'
 FROM php:8.2-apache
 
 RUN apt-get update \
@@ -22,7 +21,7 @@ RUN printf '%s\n' \
     'set -e' \
     'PORT="${PORT:-10000}"' \
     'sed -ri "s/^Listen 80$/Listen ${PORT}/" /etc/apache2/ports.conf' \
-    'sed -ri "s/<VirtualHost \\*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf' \
+    'sed -ri "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf' \
     'exec apache2-foreground' \
     > /usr/local/bin/start-brainpal.sh \
     && chmod +x /usr/local/bin/start-brainpal.sh
@@ -30,4 +29,3 @@ RUN printf '%s\n' \
 EXPOSE 10000
 
 CMD ["/usr/local/bin/start-brainpal.sh"]
-'@ | Set-Content -Path .\Dockerfile -Encoding UTF8
